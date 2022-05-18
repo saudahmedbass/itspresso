@@ -1,0 +1,114 @@
+<meta charset="UTF-8">
+<title>ITspresso</title>
+
+<!-- CSS (load bootstrap from a CDN) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.js"></script>
+<script src="https://code.angularjs.org/1.8.2/angular-cookies.js"></script>
+<script src="https://code.angularjs.org/1.8.2/angular-sanitize.js"></script>
+
+<script>
+    var app = angular.module('myApp', [ 'ngCookies', 'ngSanitize']);
+
+    app.controller('FirstController', function ($rootScope, $scope, $http, $cookies, $sce) {
+        $scope.message = 'Hello from FirstController';
+
+        $scope.address="https://www.whatmobile.com.pk/";
+
+        $scope.getLinks = async function () {
+            $rootScope.progress = true;
+            await $http.get(`http://127.0.0.1:7280/title?address=${$scope.address}&address=${$scope.address}`).then(
+                response => {
+                    if (response.status == 200) {
+
+                        console.log(response.data);
+
+                        var htmlCode =  $sce.trustAsHtml(`<h1>${response.data.toString()}</h1>`) ;
+
+                        $scope.message = htmlCode;
+
+                        // $cookies.put('email', `${$scope.loginEMail}`);
+                        // $cookies.put('role', response.data.role);
+
+                    } else {
+
+                        $rootScope.progress = false;
+
+                    }
+
+                },
+                err => {
+                    if (err.status == -1) {
+
+
+                        console.log(`error connecting to server code= ${err.status}`);
+                    } else if (err.status >= 400 && err.status < 500) {
+
+
+                        console.log(`couldnt login= ${err.status}`);
+                    } else {
+
+
+                        console.log(`unknown error= ${err.status}`);
+                    }
+                }
+            );
+        }
+    });
+
+</script>
+<style>
+  body { padding-top:50px; }
+</style>
+
+<style>
+    table{
+        width: 100%;
+        table-layout: fixed;
+    }
+    table, th, td {
+        border:1px solid black;
+        word-wrap:break-word;
+    }
+
+</style>
+
+<script>
+    var url = "http://localhost:7280/title?";
+
+    
+
+    var isConcatinated = false;
+
+    window.onload = function() {
+        document.getElementById("url").innerHTML=url;
+    };
+
+
+    function concats(){
+        var inputs = document.getElementById("inputs").value;
+
+        if(inputs != ''){
+
+            if(isConcatinated == false){
+
+                url = url + `address=${inputs}`;
+                
+                isConcatinated = true;
+            }else{
+                url = url + `&address=${inputs}`;
+            }
+
+            document.getElementById("url").innerHTML=url;
+            document.getElementById("inputs").value = '';
+        }else{
+            alert("enter a valid url");
+        }
+    }
+
+    function getTitle(){
+        // window.open(url);
+        location.href = url;
+    }
+</script>

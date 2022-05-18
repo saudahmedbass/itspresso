@@ -1,0 +1,34 @@
+{
+  "name": "saud_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@shopify/shopify-api": "^2.0.0",
+    "async-each": "^1.0.3",
+    "cheerio": "^1.0.0-rc.10",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "firebase": "^9.4.1",
+    "firebase-admin": "^10.0.0",
+    "gmail-send": "^1.8.14",
+    "googleapis": "^39.2.0",
+    "jshint": "^2.13.2",
+    "mysql": "^2.18.1",
+    "oracledb": "^5.3.0",
+    "pm2": "^5.1.2",
+    "pm2-windows-startup": "^1.0.3",
+    "public-ip": "^4.0.4",
+    "request": "^2.88.2",
+    "twilio": "^3.72.0",
+    "windows-scheduler": "^1.0.1",
+    "windows-service-controller": "^0.1.5"
+  },
+  "description": ""
+}
